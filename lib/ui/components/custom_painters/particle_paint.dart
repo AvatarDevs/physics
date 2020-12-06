@@ -12,7 +12,7 @@ class ParticlePaint extends ViewModelWidget<ParticleViewModel> {
     return Center(
       child: GestureDetector(
         onTapDown: model.onTapDown,
-        onPanUpdate: model.onPanDown,
+       // onPanUpdate: model.onPanDown,
         child: CustomPaint(
           child: Container(
             color: Colors.white10,

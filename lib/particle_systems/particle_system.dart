@@ -8,6 +8,8 @@ import 'package:physics/particle_systems/emitter.dart';
 class ParticleSystem {
   List<Emitter> emitters = [];
 
+  Rect dragSpots = Rect.fromLTWH(100, 100, 200, 150);
+
   createEmitter(Offset offset) {
     emitters.add(Emitter(
       emissionPoint: offset,
@@ -16,19 +18,19 @@ class ParticleSystem {
   }
 
   updateEmitters() {
-    if(emitters.isNotEmpty){
-      for (int i = emitters.length-1; i >= 0;i--) {
-      if (emitters[i].hasRemainingParticles) {
-        print("Emitters Remaining: ${emitters.length}");
-        emitters[i].updateParticles();
-      } else {
-        emitters.remove(emitters[i]);
+    if (emitters.isNotEmpty) {
+      for (int i = emitters.length - 1; i >= 0; i--) {
+        if (emitters[i].hasRemainingParticles) {
+          emitters[i].updateParticles(dragSpots);
+        } else {
+          emitters.remove(emitters[i]);
+        }
       }
-    }
     }
   }
 
   drawEmitters(Canvas canvas, Size size) {
+    canvas.drawRect(dragSpots, Paint()..color = Color(0xffadee33));
     for (Emitter emitter in emitters) {
       emitter.drawParticles(canvas, size);
     }
